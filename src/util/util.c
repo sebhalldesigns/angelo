@@ -2,13 +2,13 @@
 **
 ** Angelo Library Source File
 **
-** File         :  app_macos.m
-** Module       :  misc
+** File         :  util.c
+** Module       :  util
 ** Project      :  Angelo
 ** Author       :  SH
 ** Created      :  2025-01-08 (YYYY-MM-DD)
 ** License      :  MIT
-** Description  :  The macos implementation of the app module.
+** Description  :  A source file containing utility functions.
 **
 ***************************************************************/
 
@@ -16,11 +16,13 @@
 ** MARK: INCLUDES
 ***************************************************************/
 
-#include "app.h"
+#include "util.h"
 
-#include "../debug/debug.h"
-
-#import <AppKit/AppKit.h>
+#ifndef _WIN32
+    #include <sys/time.h>
+#else
+    #include <windows.h>
+#endif
 
 /***************************************************************
 ** MARK: CONSTANTS & MACROS
@@ -34,6 +36,17 @@
 ** MARK: STATIC VARIABLES
 ***************************************************************/
 
+#ifndef _WIN32
+    struct timeval start_time;
+    struct timeval end_time;
+#else
+    LARGE_INTEGER start_time;
+    LARGE_INTEGER end_time;
+    LARGE_INTEGER frequency;
+    double elapsed_time;
+#endif
+
+
 /***************************************************************
 ** MARK: STATIC FUNCTION DEFS
 ***************************************************************/
@@ -42,28 +55,34 @@
 ** MARK: PUBLIC FUNCTIONS
 ***************************************************************/
 
-AppHandle_opt create_app(const char* title)
+void start_timer()
 {
-    NSApplication *app = [NSApplication sharedApplication];
-    [app setActivationPolicy:NSApplicationActivationPolicyRegular];
-    [app activateIgnoringOtherApps:YES];
-    [app finishLaunching];
-
-    log_info("App created");
-
-    return (AppHandle_opt) { .value = (intptr_t)app, .is_some = true };
+    #ifndef _WIN32
+        gettimeofday(&start_time, NULL);
+    #else
+        QueryPerformanceCounter(&start_time);
+    #endif
 }
 
-int run_app(AppHandle handle)
-{   
-    NSApplication *app = (NSApplication*)handle;
-    
-    log_info("App running");
-    [app run];
+void stop_timer()
+{
+    #ifndef _WIN32
+        gettimeofday(&end_time, NULL);
+    #else
+        QueryPerformanceCounter(&end_time);
+    #endif
+}
 
-    log_info("App stopped");
+uint64_t get_elapsed_micros()
+{
+    #ifndef _WIN32
+        return (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_usec - start_time.tv_usec);
+    #else
+        QueryPerformanceFrequency(&frequency);
+        elapsed_time = (double)(end_time.QuadPart - start_time.QuadPart) / frequency.QuadPart;
+        return (uint64_t)(elapsed_time * 1000000);
+    #endif
 
-    return 0;
 }
 
 /***************************************************************

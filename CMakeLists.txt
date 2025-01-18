@@ -4,12 +4,16 @@ project(angelo)
 
 ## ANGELO LIBRARY
 add_library(angelo SHARED 
+
+    src/debug/debug.c
+    src/util/util.c
+
     src/app/app_macos.m
     src/win/win_macos.m
 )
 
 if(APPLE)
-    target_link_libraries(angelo "-framework Cocoa")
+    target_link_libraries(angelo "-framework Cocoa -framework Metal -framework QuartzCore")
 endif()
 
 ## ANGELO TEST

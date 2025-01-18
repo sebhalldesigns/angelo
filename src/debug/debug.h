@@ -2,31 +2,26 @@
 **
 ** Angelo Library Header File
 **
-** File         :  util.h
-** Module       :  util
+** File         :  debug.h
+** Module       :  debug
 ** Project      :  Angelo
 ** Author       :  SH
 ** Created      :  2025-01-08 (YYYY-MM-DD)
 ** License      :  MIT
-** Description  :  A header file containing utility types.
+** Description  :  A header file template.
 **
 ***************************************************************/
 
-#ifndef UTIL_H
-#define UTIL_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
 /***************************************************************
 ** MARK: INCLUDES
 ***************************************************************/
 
-#include <stdbool.h>
-#include <stdint.h>
-
 /***************************************************************
 ** MARK: CONSTANTS & MACROS
 ***************************************************************/
-
-#define OPTION(T) struct { T value; bool is_some; }
 
 /***************************************************************
 ** MARK: TYPEDEFS
@@ -36,9 +31,11 @@
 ** MARK: FUNCTION DEFS
 ***************************************************************/
 
-void start_timer();
-void stop_timer();
+void log_info(const char* message, ...);
 
-uint64_t get_elapsed_micros();
+void log_warn(const char* message, ...);
 
-#endif /* UTIL_H */
+void log_error(const char* message, ...);
+
+
+#endif /* DEBUG_H */
