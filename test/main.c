@@ -4,7 +4,7 @@
 int main() {
     printf("Hello, World!\n");
 
-    AppHandle_opt app = create_app("Hello, World!");
+    AppHandle_opt app = create_app("Angelo Test");
     if (app.is_some) {
         printf("App created successfully!\n");
     } else {
@@ -12,7 +12,7 @@ int main() {
         return -1;
     }
     
-    WindowHandle_opt window = create_window(800, 600, "Hello, World!");
+    WindowHandle_opt window = create_window(800, 600, "Angelo Test");
     if (window.is_some) {
         printf("Window created successfully!\n");
     } else {

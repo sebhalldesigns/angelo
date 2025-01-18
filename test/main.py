@@ -33,7 +33,7 @@ lib.create_window.restype = WindowHandleOpt
 title = b"My Application"  # Note: Strings passed to ctypes must be bytes
 app = lib.create_app(title)
 
-window = lib.create_window(800, 600, title)
+window = lib.create_window(800, 600, b"My Application Window")
 
 if app.is_some:
     lib.run_app(app.value)

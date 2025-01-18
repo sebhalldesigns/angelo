@@ -1,0 +1,25 @@
+add_executable(angelo_test MACOSX_BUNDLE test/main.c)
+target_include_directories(angelo_test PRIVATE src)
+target_link_libraries(angelo_test angelo)
+set(CUR_TARGET angelo_test)
+set_target_properties(${CUR_TARGET} PROPERTIES
+    BUNDLE True
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.domain.style.identifier.${CUR_TARGET}
+    MACOSX_BUNDLE_BUNDLE_NAME ${CUR_TARGET}
+    MACOSX_BUNDLE_BUNDLE_VERSION "0.1"
+    MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1"
+    MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/test/app.plist
+    MACOSX_RPATH ON
+)
+
+# Path to the dylib
+set(DYLIB_PATH ${CMAKE_BINARY_DIR}/Debug/libangelo.dylib)
+
+# Print the dylib path
+message(STATUS "DYLIB_PATH: ${DYLIB_PATH}")
+
+# Copy the dylib to the bundle
+add_custom_command(TARGET ${CUR_TARGET} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_BUNDLE_DIR:angelo_test>/Contents/Frameworks
+    COMMAND ${CMAKE_COMMAND} -E copy ${DYLIB_PATH} $<TARGET_BUNDLE_DIR:angelo_test>/Contents/Frameworks
+)

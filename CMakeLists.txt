@@ -17,6 +17,7 @@ if(APPLE)
 endif()
 
 ## ANGELO TEST
+
 add_executable(angelo_test test/main.c)
 target_include_directories(angelo_test PRIVATE src)
 target_link_libraries(angelo_test angelo)
