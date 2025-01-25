@@ -18,6 +18,8 @@
 
 #include "util.h"
 
+#include <stddef.h>
+
 #ifndef _WIN32
     #include <sys/time.h>
 #else

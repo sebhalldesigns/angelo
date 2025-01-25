@@ -24,6 +24,7 @@
 
 #include <stdint.h>
 #include "../util/util.h"
+#include "../app/app.h"
 
 /***************************************************************
 ** MARK: CONSTANTS & MACROS
@@ -40,6 +41,8 @@ typedef OPTION(WindowHandle) WindowHandle_opt;
 ** MARK: FUNCTION DEFS
 ***************************************************************/
 
-WindowHandle_opt create_window(int width, int height, const char* title);
+WindowHandle_opt create_window(AppHandle app, int width, int height, const char* title);
+void clear_window(AppHandle app, WindowHandle handle);
+void swap_window_buffers(AppHandle app, WindowHandle handle);
 
 #endif /* WIN_H */

@@ -2,13 +2,13 @@
 **
 ** Angelo Library Source File
 **
-** File         :  source_template.c
-** Module       :  misc
+** File         :  win_win32.c
+** Module       :  win
 ** Project      :  Angelo
 ** Author       :  SH
 ** Created      :  2025-01-08 (YYYY-MM-DD)
 ** License      :  MIT
-** Description  :  A source file template.
+** Description  :  Win32 window implementation
 **
 ***************************************************************/
 

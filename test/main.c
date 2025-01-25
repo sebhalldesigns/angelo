@@ -12,7 +12,7 @@ int main() {
         return -1;
     }
     
-    WindowHandle_opt window = create_window(800, 600, "Angelo Test");
+    WindowHandle_opt window = create_window(app.value, 800, 600, "Angelo Test");
     if (window.is_some) {
         printf("Window created successfully!\n");
     } else {
