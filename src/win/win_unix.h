@@ -28,17 +28,11 @@
     #include <X11/Xlib.h>
     #include <GL/gl.h>
     #include <GL/glx.h>
-    #include <EGL/egl.h>
-    #include <EGL/eglext.h>
-    #include <GLES3/gl3.h>
-
-    #include <wayland-egl.h>
-    #include <libdecor-0/libdecor.h>
 
 #endif 
 
 /***************************************************************
-** MARK: CONSTANTS & MACROS
+** MARK: CONSTANTS & MACRO
 ***************************************************************/
 
 /***************************************************************
@@ -54,23 +48,6 @@
 
         union 
         {
-            struct 
-            {
-                struct wl_display* wl_display;
-                struct wl_surface* wl_surface;
-                struct xdg_surface* xd_surface;
-                struct xdg_toplevel* xd_toplevel;
-
-                EGLDisplay eglDisplay;
-                EGLSurface eglSurface;
-                EGLContext eglContext;
-                struct wl_egl_window* eglWindow;
-
-                struct libdecor_frame *frame;
-                enum libdecor_window_state windowState;
-
-            } waylandData;
-
             struct
             {
                 Window rawHandle;
